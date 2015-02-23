@@ -7,6 +7,6 @@ lint:
 
 test:
 	@NODE_ENV=test $(MOCHA) \
-		--harmony-generators \
+		--harmony \
 		--reporter spec \
 		test.js

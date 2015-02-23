@@ -11,7 +11,7 @@ describe('xRequestId', function(){
     .expect(200, done)
   })
 
-  it('should be return custom key `Request-Id`', function(done){
+  it('should return custom key `Request-Id`', function(done){
     var server = createServer('Request-Id')
     request(server)
     .get('/')
@@ -19,7 +19,7 @@ describe('xRequestId', function(){
     .expect(200, done)
   })
 
-  it('should be return no-hyphen uuid', function(done){
+  it('should return no-hyphen uuid', function(done){
     var server = createServer('Request-Id', true)
     request(server)
     .get('/')
@@ -43,7 +43,7 @@ describe('xRequestId', function(){
     .expect('X-Request-Id', /[0-9a-zA-Z]{32}/)
     .expect(200, done)
   })
-})
+});
 
 function createServer(key, noHyphen, inject) {
   var app = koa();
