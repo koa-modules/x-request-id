@@ -1,6 +1,6 @@
 {
   "name": "koa-x-request-id",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Generates a unique Request ID for every incoming HTTP request",
   "main": "index.js",
   "scripts": {
