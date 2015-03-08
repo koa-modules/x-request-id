@@ -9,12 +9,12 @@
 /**
  * Module dependences.
  */
+
 var debug = require('debug')('koa:x-request-id')
 var uuid = require('node-uuid').v4;
 
 const HTTP_X_REQUEST_ID_HEADER = 'X-Request-Id';
 const REGEXP = /\-/g;
-
 
 /**
  * X-Request-Id:
@@ -43,11 +43,22 @@ function xRequestId(key, noHyphen, inject) {
 }
 
 function requestId(ctx, key, noHyphen, inject) {
-  var id = ctx.request.query[key]
-    || ctx.response.get(key)
+  var id = ctx.query[key]
+    || ctx.get(key)
     || uuid();
   if (noHyphen) id = id.replace(REGEXP, '');
-  if (inject) ctx[key.toLowerCase().replace(REGEXP, '_')] = id;
+  if (inject) {
+    Object.defineProperty(ctx.request, 'id', {
+      get: function requestId() {
+        return id;
+      }
+    });
+    Object.defineProperty(ctx, 'id', {
+      get: function requestId() {
+        return this.request.id;
+      }
+    });
+  }
   ctx.set(key, id);
   debug('%s: %s', key, id);
 }
