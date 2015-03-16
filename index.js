@@ -31,34 +31,34 @@ const REGEXP = /\-/g;
 
 module.exports = xRequestId;
 
-function xRequestId(key, noHyphen, inject) {
-  key = key || HTTP_X_REQUEST_ID_HEADER;
-  noHyphen = !!noHyphen;
-  inject = !!inject;
+function xRequestId(app, options) {
+  options = options || {};
+  var key = options.key || HTTP_X_REQUEST_ID_HEADER;
+  var noHyphen = !!options.noHyphen;
+  var inject = !!options.inject;
 
-  return function* xRequestId(next) {
-    requestId(this, key, noHyphen, inject);
-    yield* next;
-  }
-}
-
-function requestId(ctx, key, noHyphen, inject) {
-  var id = ctx.query[key]
-    || ctx.get(key)
-    || uuid();
-  if (noHyphen) id = id.replace(REGEXP, '');
   if (inject) {
-    Object.defineProperty(ctx.request, 'id', {
-      get: function requestId() {
-        return id;
+    Object.defineProperty(app.request, 'id', {
+      get: function() {
+        return this._id;
+      },
+      set: function(id) {
+        this._id = id;
       }
     });
-    Object.defineProperty(ctx, 'id', {
-      get: function requestId() {
+    Object.defineProperty(app.context, 'id', {
+      get: function() {
         return this.request.id;
       }
     });
   }
-  ctx.set(key, id);
-  debug('%s: %s', key, id);
+
+  return function* xRequestId(next) {
+    var id = this.id || this.query[key] || this.get(key) || uuid();
+    if (noHyphen) id = id.replace(REGEXP, '');
+    if (inject) this.request.id = id;
+    this.set(key, id);
+    debug('%s: %s', key, id);
+    yield * next;
+  }
 }
