@@ -1,10 +1,14 @@
 {
   "name": "koa-x-request-id",
-  "version": "1.1.0",
+  "version": "2.0.0-alpha.1",
   "description": "Generates a unique Request ID for every incoming HTTP request",
+  "author": "Fangdun Cai <cfddream@gmail.com>",
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "test": "make test"
+    "test": "mocha --reporter spec --bail --check-leaks",
+    "test-ci": "isparta cover node_modules/.bin/_mocha --report lcovonly -- --reporter spec --check-leaks test.js",
+    "test-cov": "isparta cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test.js"
   },
   "repository": "koa-modules/x-request-id",
   "keywords": [
@@ -15,19 +19,23 @@
     "middleware",
     "koa"
   ],
-  "author": "Fangdun Cai <cfddream@gmail.com>",
-  "license": "MIT",
   "dependencies": {
-    "debug": "^2.x",
-    "node-uuid": "^1.x"
+    "debug": "*",
+    "node-uuid": "*"
   },
   "devDependencies": {
-    "koa": "^0.18.1",
-    "koa-mount": "^1.3.0",
-    "mocha": "^2.2.0",
-    "supertest": "^0.15.0"
+    "isparta": "^4.x",
+    "koa": "^2.0.0-alhpa.3",
+    "koa-convert": "^1.x",
+    "koa-mount": "^1.x",
+    "mocha": "^2.x",
+    "supertest": "^1.x"
+  },
+  "enignes": {
+    "node": ">= 4"
   },
   "files": [
+    "LICENSE",
     "index.js"
   ]
 }

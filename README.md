@@ -17,18 +17,38 @@ $ npm install --save koa-x-request-id
 
 ## Usage
 
-Adding this into your koa server file:
+### **=2.x**, working with `koa-v2`
+
+```
+app.use(xRequestId({ key, noHyphen, inject }, [app]))
+```
 
 ```js
-var koa = require('koa');
-var xRequestId = require('koa-x-request-id');
-var app = koa();
+const Koa = require('koa')
+const xRequestId = require('koa-x-request-id')
+const app = new Koa()
 
 // key defaults to `X-Request-Id`
-// if noHyphen = true, generates 32 uuid, no hyphen `-`.
-// in inject = true, `this[key] = uuid;
-app.use(xRequestId(key, noHyphen, inject));
+// if `noHyphen = true`, generates 32 uuid, no hyphen `-`.
+// if `inject = true`, `ctx.id = uuid`
+app.use(xRequestId({key, noHyphen, inject}, app))
+```
 
+### **=1.x**
+
+```
+app.use(xRequestId(app, { key, noHyphen, inject }))
+```
+
+```js
+var koa = require('koa')
+var xRequestId = require('koa-x-request-id')
+var app = koa()
+
+// key defaults to `X-Request-Id`
+// if `noHyphen = true`, generates 32 uuid, no hyphen `-`.
+// if `inject = true`, `ctx.id = uuid`
+app.use(xRequestId({key, noHyphen, inject}, app))
 ```
 
 [npm-img]: https://img.shields.io/npm/v/koa-x-request-id.svg?style=flat-square
