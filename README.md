@@ -62,4 +62,4 @@ app.use(xRequestId({key, noHyphen, inject}, app))
 [license-url]: LICENSE
 [david-img]: https://img.shields.io/david/koa-modules/x-request-id.svg?style=flat-square
 [david-url]: https://david-dm.org/koa-modules/x-request-id
-[downloads-image]: https://img.shields.io/npm/dm/koa-x-request-id?style=flat-square
+[downloads-image]: https://img.shields.io/npm/dm/koa-x-request-id.svg?style=flat-square
