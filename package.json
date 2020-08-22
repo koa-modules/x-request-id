@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "debug": "*",
-    "node-uuid": "*"
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "isparta": "^4.x",
