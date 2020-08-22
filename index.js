@@ -12,7 +12,7 @@
 
 const assert = require('assert')
 const debug = require('debug')('koa:x-request-id')
-const uuid = require('node-uuid').v4
+const uuid = require('uuid').v4
 
 const HTTP_X_REQUEST_ID_HEADER = 'X-Request-Id'
 
